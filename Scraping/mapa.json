@@ -1,0 +1,76 @@
+{
+    "comum": {
+    "ano":["ano", "edicao","nu_ano","ano_enade","nu_ano_censo","ano_de_referencia"],
+    "codigo_da_area":["codigo_da_area","cod_area","codarea"],
+    "area_de_avaliacao":["area_de_avaliacao","area_de_enquadramento","area"],
+    "grau_academico":["grau_academico"],
+    "codigo_da_ies":["codigo_da_ies","co_ies","codies","cod_ies","cod_ies_2025","co_ies_v2"],
+    "nome_da_ies":["nome_da_ies","no_ies"],
+    "sigla_da_ies":["sigla_da_ies","sg_ies","sigla_da_ies_"],
+    "organizacao_academica":["organizacao_academica","org_academica","no_orgacad","organizacao_academica_"],
+    "categoria_administrativa":["categoria_administrativa","categ_administrativa","no_categad","categoria_administrativa_"],
+    "codigo_do_curso":["codigo_do_curso"],
+    "modalidade_de_ensino":["modalidade_de_ensino"],
+    "codigo_do_municipio":["codigo_do_municipio","cod_municipio"],
+    "municipio_do_curso":["municipio_do_curso","nome_do_municipio"],
+    "sigla_da_uf":["sigla_da_uf", "uf_da_ies","sg_uf","sigla_uf","uf_do_curso"],
+    "n_de_concluintes_inscritos":["inscritos","n_de_concluintes_inscritos","concluintes_inscritos"],
+    "n_de_concluintes_participantes":["participantes","n_de_concluintes_participantes","concluintes_participantes"],
+    "entidade_beneficiente_de_assistencia_social_cebas":["entidade_beneficiente_de_assistencia_social_cebas","cebas"],
+    "observacao":["observacao", "obs","tx_obs","tx_obs_observacao","x"],
+    "regiao_do_curso":["regiao_do_curso"],
+    "numero_de_cursos_da_unidade":["numero_de_cursos_da_unidade","nr_de_cursos_da_unidade","n_de_cursos_da_unidade"]},
+    
+    "enade": {
+    "nota_bruta_fg":["nota_bruta_fg"],
+    "nota_padronizada_fg":["nota_padronizada_fg"],
+    "nota_bruta_ce":["nota_bruta_ce"],
+    "nota_padronizada_ce":["nota_padronizada_ce"],
+    "conceito_enade_continuo":["conceito_enade_continuo","nota_continua_do_enade"],
+    "conceito_enade_faixa":["conceito_enade_faixa"],
+    "n_de_docentes":["n_de_docentes","nr_de_docentes"],
+    "nota_bruta_geral":["nota_bruta_geral"],
+    "nota_padronizada_geral":["nota_padronizada_geral"],
+    "total_concluintes_igual_ou_acima_do_padrao": ["total_concluinte_acima_do_padrao", "total_de_concluinte_igual_ou_acima_do_padrao_1_de_proficiencia"],
+    "percentual_concluintes_igual_ou_acima_do_padrao": ["percentual_concluintes_acima_do_padrao", "percentual_de_concluintes_igual_ou_acima_do_padrao_1_de_proficiencia"]},
+    
+    "idd": {
+    "n_de_concluintes_participantes_com_nota_no_enem": ["n_de_concluintes_participantes_com_nota_no_enem", "concluintes_participantes_com_nota_no_enem"],
+    "proporcao_de_concluintes_participantes_com_nota_no_enem": ["proporcao_de_concluintes_participantes_com_nota_no_enem","percentual_de_concluintes_participantes_com_nota_no_enem"],
+    "nota_bruta_idd": ["nota_bruta_idd"],
+    "idd_continuo": ["idd_continuo"],
+    "idd_faixa": ["idd_faixa"],  
+    "nota_padronizada_idd": ["nota_padronizada_idd"]
+},
+
+    "cpc": {
+    "nota_bruta_organizacao_didaticopedagogica": ["nota_bruta_organizacao_didaticopedagogica"],
+    "nota_padronizada_organizacao_didaticopedagogica": ["nota_padronizada_organizacao_didaticopedagogica"],
+    "nota_bruta_infraestrutura_e_instalacoes_fisicas": ["nota_bruta_infraestrutura_e_instalacoes_fisicas"],
+    "nota_padronizada_infraestrutura_e_instalacoes_fisicas": ["nota_padronizada_infraestrutura_e_instalacoes_fisicas"],
+    "nota_bruta_oportunidade_de_ampliacao_da_formacao": ["nota_bruta_oportunidade_de_ampliacao_da_formacao","nota_bruta_oportunidades_de_ampliacao_da_formacao"],
+    "nota_padronizada_oportunidade_de_ampliacao_da_formacao": ["nota_padronizada_oportunidade_de_ampliacao_da_formacao","nota_padronizada_oportunidades_de_ampliacao_da_formacao"],
+    "nota_bruta_mestres": ["nota_bruta_mestres"],
+    "nota_padronizada_mestres": ["nota_padronizada_mestres"],
+    "nota_bruta_doutores": ["nota_bruta_doutores"],
+    "nota_padronizada_doutores": ["nota_padronizada_doutores"],
+    "nota_bruta_regime_de_trabalho": ["nota_bruta_regime_de_trabalho"],
+    "nota_padronizada_regime_de_trabalho": ["nota_padronizada_regime_de_trabalho"],
+    "cpc_continuo": ["cpc_continuo"],
+    "cpc_faixa": ["cpc_faixa"],
+    "nr_de_matriculas": ["nr_de_matriculas"],
+    "n_cursos_cpc":["n_cursos_cpc"]},
+    
+    
+    "igc": {
+    "n_de_cursos_com_cpc_no_trienio": ["n_de_cursos_com_cpc_no_trienio","nr_de_cursos_com_cpc_no_trienio"],
+    "alfa_proporcao_de_graduacao": ["alfa_proporcao_de_graduacao","alfa_proporcao_de_graduandos","alfa","alfaproporcao_de_graduandos"],
+    "conceito_medio_de_graduacao": ["conceito_medio_de_graduacao","conceito_medio_da_graduacao","g_ies"],
+    "beta_proporcao_de_mestrado_equivalente": ["beta_proporcao_de_mestrado_equivalente","beta_proporcao_de_mestrandos_equivalente","beta","betaproporcao_de_mestrandos_equivalente"],
+    "conceito_medio_de_mestrado": ["conceito_medio_de_mestrado","conceito_medio_do_mestrado","m"],
+    "gama_proporcao_de_doutorandos_equivalente": ["gama_proporcao_de_doutorandos_equivalente","gama","gamaproporcao_de_doutorandos_equivalente"],
+    "conceito_medio_do_doutorado": ["conceito_medio_do_doutorado","d"],
+    "igc_continuo": ["igc_continuo","igc"],
+    "nr_de_cursos_avaliados_no_trienio": ["nr_de_cursos_avaliados_no_trienio"],
+    "igc_faixa": ["igc_faixa","fx_igc"]}
+}

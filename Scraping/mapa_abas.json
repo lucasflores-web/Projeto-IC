@@ -1,0 +1,32 @@
+{
+  "abas": {
+    "enade": [
+      "enade",
+      "planilha_enade",
+      "conceito enade",
+      "conceito_enade",
+      "ce"
+    ],
+    "idd": [
+      "idd",
+      "idd2019",
+      "idd_2018",
+      "idd 2017"
+    ],
+    "cpc": [
+      "cpc",
+      "conceito preliminar",
+      "conceito_preliminar",
+      "cpc2019",
+      "portal_cpc_2017",
+      "cpc_2016"
+    ],
+    "igc": [
+      "igc",
+      "igc_2019",
+      "indice geral",
+      "indice_geral",
+      "portal igc_2017"
+    ]
+  }
+}

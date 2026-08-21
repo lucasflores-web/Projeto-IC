@@ -1,0 +1,10 @@
+Backend/__pycache__/
+Backend/venv_backend/
+Backend/.env
+
+Frontend/__pycache__/
+Frontend/venv_frontend/
+Frontend/.env
+
+Scraping/venv_scraping/
+Scraping/pasta_dos_xlsx/
