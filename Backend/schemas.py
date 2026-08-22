@@ -1,11 +1,7 @@
-from pydantic import BaseModel
-from typing import Optional 
-
-class Mensagem(BaseModel):
-    titulo: str
-    conteudo: str
-    publicada: bool = True
 '''
+from pydantic import BaseModel
+from typing import Optiona
+
 class ConceitoEnadeSchema(BaseModel):
     builtin_function_id: int
     ano: Optional[str] = None
