@@ -1,4 +1,3 @@
-import logging
 import pandas as pd
 from taipy.gui import notify
 from db import (
@@ -8,8 +7,6 @@ from db import (
     buscar_anos_disponiveis,
 )
 
-logger = logging.getLogger(__name__)
-
 # ---------- Configuração do indicador ----------
 
 TIPO_CURSOS = "cpc"
@@ -17,7 +14,6 @@ ANOS_CURSOS = buscar_anos_disponiveis(TIPO_CURSOS)
 
 QTD_SLOTS = 4  # quantidade de duplas (IES + Área) disponíveis para comparação
 
-# Métricas do CPC que queremos exibir — nome de exibição -> nome da coluna no banco
 METRICAS_CPC = {
     "Contínuo": "cpc_continuo",
     "Faixa": "cpc_faixa",
@@ -49,11 +45,9 @@ tabela_comparar = pd.DataFrame({"Ano": ANOS_CURSOS})
 grafico_comparar = pd.DataFrame({"Ano": ANOS_CURSOS})
 
 
-# ---------- Funções auxiliares (puras — não tocam em `state`) ----------
+# ---------- Funções auxiliares ----------
 
 def _areas_da_ies(ies: str) -> list[str]:
-    """Busca, via endpoint condicionado, as áreas de avaliação (cursos)
-    oferecidas por uma IES — filtro feito no banco, não em memória."""
     if not ies:
         return []
     return buscar_valores_filtro_condicionado(
@@ -62,18 +56,12 @@ def _areas_da_ies(ies: str) -> list[str]:
 
 
 def _rotulo_dupla(ies: str, area: str) -> str:
-    """Rótulo curto usado como nome de coluna/série no gráfico e na tabela."""
     return f"{ies} - {area}"
 
 
 def _series_por_ano(ies: str, area: str) -> dict[str, dict[str, float]]:
-    """Para uma dupla (IES, área), retorna a média por ano de cada métrica do CPC
-    (cpc_continuo e cpc_faixa). Formato: {"Contínuo": {ano: valor}, "Faixa": {ano: valor}}."""
     filtros = {"nome_da_ies": ies, "area_de_avaliacao": area}
     df = carregar_serie_historica(TIPO_CURSOS, ANOS_CURSOS, filtros)
-
-    logger.info("_series_por_ano ies=%r area=%r -> %d linhas, colunas=%s",
-                ies, area, len(df), list(df.columns))
 
     if df.empty:
         return {}
@@ -81,7 +69,6 @@ def _series_por_ano(ies: str, area: str) -> dict[str, dict[str, float]]:
     resultado = {}
     for nome_metrica, coluna in METRICAS_CPC.items():
         if coluna not in df.columns:
-            logger.warning("coluna %r não encontrada em %s", coluna, list(df.columns))
             continue
         numerico = pd.to_numeric(df[coluna], errors="coerce")
         agrupado = numerico.groupby(df["ano"]).mean()
@@ -91,9 +78,6 @@ def _series_por_ano(ies: str, area: str) -> dict[str, dict[str, float]]:
 
 
 def _montar_serie_historica(duplas: list[tuple[str, str]]) -> tuple[pd.DataFrame, list[str]]:
-    """Monta um DataFrame wide: uma linha por Ano, duas colunas por dupla selecionada
-    (uma para cpc_continuo, outra para cpc_faixa). Retorna também a lista de rótulos
-    que não tiveram nenhum dado encontrado."""
     dados = {"Ano": ANOS_CURSOS}
     sem_dados = []
 
@@ -133,8 +117,6 @@ propriedades_grafico = _properties_grafico([])
 # ---------- Callbacks ----------
 
 def _fazer_on_change_ies(indice: int):
-    """Fábrica: gera o callback de mudança de IES para um slot específico
-    (1 a QTD_SLOTS), evitando repetir a mesma função para cada slot."""
     def _on_change(state):
         ies = getattr(state, f"ies_selecionada_{indice}")
         setattr(state, f"areas_disponiveis_{indice}", _areas_da_ies(ies))
@@ -149,7 +131,6 @@ on_change_ies_4 = _fazer_on_change_ies(4)
 
 
 def comparar_cursos(state):
-    """Botão 'Comparar': lê os slots do state e monta tabela + gráfico de uma vez."""
     slots = [
         (getattr(state, f"ies_selecionada_{i}"), getattr(state, f"area_selecionada_{i}"))
         for i in range(1, QTD_SLOTS + 1)
@@ -170,21 +151,17 @@ def comparar_cursos(state):
         state.propriedades_grafico = _properties_grafico([])
         return
 
-    try:
-        wide, sem_dados = _montar_serie_historica(duplas)
-        colunas_series = [c for c in wide.columns if c != "Ano"]
+    wide, sem_dados = _montar_serie_historica(duplas)
+    colunas_series = [c for c in wide.columns if c != "Ano"]
 
-        with state:
-            state.tabela_comparar = wide
-            state.grafico_comparar = wide
-            state.propriedades_grafico = _properties_grafico(colunas_series)
+    with state:
+        state.tabela_comparar = wide
+        state.grafico_comparar = wide
+        state.propriedades_grafico = _properties_grafico(colunas_series)
 
-        notify(state, "success", "Comparação atualizada.")
-        if sem_dados:
-            notify(state, "warning", "Sem dados de CPC para: " + "; ".join(sem_dados))
-    except Exception as e:
-        logger.exception("Erro ao montar comparação")
-        notify(state, "error", f"Erro ao montar comparação: {e}")
+    notify(state, "success", "Comparação atualizada.")
+    if sem_dados:
+        notify(state, "warning", "Sem dados de CPC para: " + "; ".join(sem_dados))
 
 
 def limpar_comparacao(state):
@@ -201,7 +178,7 @@ def limpar_comparacao(state):
         state.propriedades_grafico = _properties_grafico([])
 
 
-# ---------- Layout (sem mudanças) ----------
+# ---------- Layout ----------
 
 pagina_comparar_md = """
 # Comparação de Cursos ao Longo dos Anos

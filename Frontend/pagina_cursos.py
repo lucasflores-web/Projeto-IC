@@ -1,5 +1,4 @@
 import pandas as pd
-from taipy.gui import notify
 from db import carregar_serie_historica, buscar_valores_filtro, buscar_anos_disponiveis
 
 TABELA = "cpc"
@@ -53,7 +52,6 @@ def _buscar_dados_filtrados(
     uf_selecionada=uf_selecionada_cursos,
     area_selecionada=area_selecionada_cursos,
 ) -> pd.DataFrame:
-    """Único ponto que toca o banco: monta os filtros e já pede pro SQL fazer o trabalho."""
     filtros = {
         "nome_do_curso": curso_selecionado,
         "cpc_faixa": nota_cpc_selecionada,
@@ -67,7 +65,6 @@ def _buscar_dados_filtrados(
     return _preparar_tabela(df)
 
 
-# Carrega só a primeira leva (sem filtro) para exibir algo ao abrir a página.
 df_cursos = _buscar_dados_filtrados()
 
 
@@ -78,17 +75,14 @@ def on_change_filtro_cursos(state):
 
 
 def aplicar_filtros_cursos(state):
-    try:
-        state.df_cursos = _buscar_dados_filtrados(
-            state.ano_selecionado_cursos,
-            state.curso_selecionado_cursos,
-            state.conceito_selecionado_cursos,
-            state.nota_cpc_selecionada_cursos,
-            state.uf_selecionada_cursos,
-            state.area_selecionada_cursos,
-        )
-    except Exception as e:
-        notify(state, "error", f"Erro ao filtrar dados: {e}")
+    state.df_cursos = _buscar_dados_filtrados(
+        state.ano_selecionado_cursos,
+        state.curso_selecionado_cursos,
+        state.conceito_selecionado_cursos,
+        state.nota_cpc_selecionada_cursos,
+        state.uf_selecionada_cursos,
+        state.area_selecionada_cursos,
+    )
 
 
 def limpar_filtros_cursos(state):

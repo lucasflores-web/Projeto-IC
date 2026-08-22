@@ -1,5 +1,4 @@
 import pandas as pd
-from taipy.gui import notify
 from db import carregar_serie_historica, buscar_valores_filtro, buscar_anos_disponiveis
 
 TABELA = "igc"
@@ -45,7 +44,6 @@ def _buscar_dados_filtrados(
     categoria_selecionada=categoria_selecionada_ies,
     nota_selecionada=nota_selecionada_ies,
 ) -> pd.DataFrame:
-    """Único ponto que toca o banco: monta os filtros e já pede pro SQL fazer o trabalho."""
     filtros = {
         "sigla_da_uf": uf_selecionada,
         "categoria_administrativa": categoria_selecionada,
@@ -57,7 +55,6 @@ def _buscar_dados_filtrados(
     return _preparar_tabela(df)
 
 
-# Carrega só a primeira leva (sem filtro) para exibir algo ao abrir a página.
 df_ies = _buscar_dados_filtrados()
 
 
@@ -68,15 +65,12 @@ def on_change_filtro_ies(state):
 
 
 def aplicar_filtros_ies(state):
-    try:
-        state.df_ies = _buscar_dados_filtrados(
-            state.ano_selecionado_ies,
-            state.uf_selecionada_ies,
-            state.categoria_selecionada_ies,
-            state.nota_selecionada_ies,
-        )
-    except Exception as e:
-        notify(state, "error", f"Erro ao filtrar dados: {e}")
+    state.df_ies = _buscar_dados_filtrados(
+        state.ano_selecionado_ies,
+        state.uf_selecionada_ies,
+        state.categoria_selecionada_ies,
+        state.nota_selecionada_ies,
+    )
 
 
 def limpar_filtros_ies(state):
