@@ -3,7 +3,6 @@ import models
 from typing import List, Dict, Any, Optional
 
 app = FastAPI()
-origins = ['http://localhost:3000']
 
 
 @app.get("/anos_disponiveis/{dataset}", status_code=status.HTTP_200_OK)
