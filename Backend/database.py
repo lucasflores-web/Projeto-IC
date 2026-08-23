@@ -5,7 +5,7 @@ import os
 
 load_dotenv(override=True) # configuração do banco e engine, override=True para carregar sempre que o .env mudar
 
-DATABASE_URL = os.getenv("NEON_DATABASE_URL")
+DATABASE_URL = os.getenv("SUPABASE_DATABASE_URL")
 
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
