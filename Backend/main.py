@@ -1,9 +1,17 @@
 from fastapi import FastAPI, status, Query
+from fastapi.middleware.cors import CORSMiddleware
 import models
 from typing import List, Dict, Any, Optional
 
 app = FastAPI()
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],     # origens permitidas- será usada a URL exata do Frontend, como ainda não se tem ficará assim (qualquer uma) 
+    allow_credentials=True,  # permite cookies/autenticação nas requisições
+    allow_methods=["*"],     # permite todos os métodos HTTP (GET, POST, etc.)
+    allow_headers=["*"],     # permite todos os headers na requisição
+)
 
 @app.get("/anos_disponiveis/{dataset}", status_code=status.HTTP_200_OK)
 def get_anos_disponiveis(dataset: str):
