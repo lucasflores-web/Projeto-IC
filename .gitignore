@@ -8,3 +8,4 @@ Frontend/.env
 
 Scraping/venv_scraping/
 Scraping/pasta_dos_xlsx/
+Scraping/.env

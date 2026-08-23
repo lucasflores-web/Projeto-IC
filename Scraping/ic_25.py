@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+# In[2]:
 
 
 import requests
@@ -11,7 +11,7 @@ from sqlalchemy import create_engine
 from openpyxl import load_workbook
 
 
-# In[5]:
+# In[3]:
 
 
 BASE_URL = "https://www.gov.br/inep/pt-br/acesso-a-informacao/dados-abertos/indicadores-educacionais/indicadores-de-qualidade-da-educacao-superior"
@@ -37,7 +37,7 @@ if tabs:
             print(f"{ano}: {url_aba}")
 
 
-# In[6]:
+# In[4]:
 
 
 # ========================================== entra em cada link e pega os <a>  ==========================================
@@ -70,27 +70,29 @@ for ano, url_pagina_ano in urls_por_ano.items():
 #arquivos_finais.pop(0)##para evitar erros de ssl que esta dando devido ao enade 2025 de medicina
 
 
-# In[7]:
+# In[5]:
 
 
 print(f"\nN° de arquivos : {len(arquivos_finais)}")
 
 
-# In[8]:
+# In[ ]:
 
 
-# configuração do banco e engine
-DATABASE_URL = "postgresql://postgres:123@localhost:5432/inepv4"
+from dotenv import load_dotenv
+import os
+load_dotenv(override=True) # configuração do banco e engine, override=True para carregar sempre que o .env mudar
+
+DATABASE_URL = os.getenv("SUPABASE_DATABASE_URL")
+
 engine = create_engine(DATABASE_URL)
 
-# URLs
-# lista_urls = ["https://download.inep.gov.br/educacao_superior/indicadores/resultados/2023/IGC_2023.xlsx"]
 lista_urls = arquivos_finais
 
 
 # # tratando as colunas e vizualizando n° de não correspondencia
 
-# In[10]:
+# In[8]:
 
 
 import pandas as pd
@@ -175,7 +177,7 @@ print(info_colunas_diferentes)
 
 # ### mostrando os erros/oque há de diferente
 
-# In[11]:
+# In[10]:
 
 
 for i in info_colunas_diferentes:
@@ -184,7 +186,7 @@ for i in info_colunas_diferentes:
 
 # ### busca por nome da aba no xlsx - teste
 
-# In[12]:
+# In[11]:
 
 
 import pandas as pd
