@@ -151,8 +151,16 @@ def comparar_cursos(state):
         state.propriedades_grafico = _properties_grafico([])
         return
 
-    wide, sem_dados = _montar_serie_historica(duplas)
+    try:
+        wide, sem_dados = _montar_serie_historica(duplas)
+    except Exception as exc:
+        notify(state, "error", f"Falha ao consultar a API: {exc}")
+        return
+
     colunas_series = [c for c in wide.columns if c != "Ano"]
+
+    with state:
+        state.propriedades_grafico = _properties_grafico([])
 
     with state:
         state.tabela_comparar = wide
