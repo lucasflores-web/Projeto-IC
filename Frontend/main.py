@@ -1,3 +1,4 @@
+import os 
 from taipy.gui import Gui
 
 # Importando o conteúdo de cada arquivo/página
@@ -41,4 +42,4 @@ pages = {
 
 if __name__ == "__main__":
     gui = Gui(pages=pages)
-    gui.run(title="IES360 - Indicadores da Educação Superior", port=5000, dark_mode=False)
+    gui.run(title="IES360 - Indicadores da Educação Superior", host="0.0.0.0", port=int(os.environ.get("PORT", 5000)), dark_mode=False)

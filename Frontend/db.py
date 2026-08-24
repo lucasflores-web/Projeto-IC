@@ -5,17 +5,17 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-API_BASE_URL = os.getenv("API_BASE_URL")
+API_URL = os.getenv("RENDER_API_URL")
 
 
 def buscar_anos_disponiveis(tipo: str) -> list[str]:
-    resp = requests.get(f"{API_BASE_URL}/anos_disponiveis/{tipo}", timeout=30)
+    resp = requests.get(f"{API_URL}/anos_disponiveis/{tipo}", timeout=30)
     resp.raise_for_status()
     return resp.json().get("anos", [])
 
 
 def buscar_valores_filtro(tipo: str, coluna: str) -> list[str]:
-    resp = requests.get(f"{API_BASE_URL}/filtros/{tipo}/{coluna}", timeout=30)
+    resp = requests.get(f"{API_URL}/filtros/{tipo}/{coluna}", timeout=30)
     resp.raise_for_status()
     return sorted(resp.json().get("valores", []))
 
@@ -23,7 +23,7 @@ def buscar_valores_filtro(tipo: str, coluna: str) -> list[str]:
 def buscar_valores_filtro_condicionado(tipo: str, coluna: str, filtro_coluna: str, filtro_valor: str) -> list[str]:
     if not filtro_valor:
         return []
-    url = f"{API_BASE_URL}/filtros/{tipo}/{coluna}/por/{filtro_coluna}"
+    url = f"{API_URL}/filtros/{tipo}/{coluna}/por/{filtro_coluna}"
     resp = requests.get(url, params={"valor": filtro_valor}, timeout=30)
     resp.raise_for_status()
     return sorted(resp.json().get("valores", []))
@@ -36,7 +36,7 @@ def carregar_serie_historica(tipo: str, anos: list[str], filtros: dict | None = 
         if valor not in (None, "", "Todos"):
             params.append((coluna, valor))
 
-    resp = requests.get(f"{API_BASE_URL}/dados_filtrados/{tipo}", params=params, timeout=30)
+    resp = requests.get(f"{API_URL}/dados_filtrados/{tipo}", params=params, timeout=30)
     resp.raise_for_status()
     return pd.DataFrame(resp.json())
 
